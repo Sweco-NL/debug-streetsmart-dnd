@@ -16,3 +16,9 @@ npm install
 npm run dev
 ```
 * Open your browser and navigate to `http://localhost:5173`.
+
+The error should be visible in the browser console. 
+
+## Make the error go away
+Commenting out the `<DndExample />` component in `src/App.tsx` should be enough to load StreetSmart correctly and make the error go away. <br />
+*Note: you then might have to refresh the page in the browser (F5), as hot reload sometimes has an issue with reinitializing the API in this setup.*
