@@ -35,7 +35,6 @@ function App() {
         password: import.meta.env.VITE_STREETSMART_PASSWORD,
       });
 
-      // const viewerInstance =
       await StreetSmartApi.open(COORD, {
         viewerType: [ViewerType.PANORAMA],
         srs: SRS,
