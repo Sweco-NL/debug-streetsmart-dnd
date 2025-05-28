@@ -1,14 +1,30 @@
-import { StrictMode } from "react";
+import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { DndProvider as MyDragDropProvider } from "my-dragdrop";
-import { HTML5Backend as MyDragDropBackend } from "my-dragdrop-backend";
-
+import { DndProvider } from "my-dragdrop";
+import { HTML5Backend } from "my-dragdrop-backend";
 import App from "./App.tsx";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <MyDragDropProvider backend={MyDragDropBackend}>
-      <App />
-    </MyDragDropProvider>
-  </StrictMode>
-);
+export function AppWithProviders() {
+  const [scopeElement, setScopeElement] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setScopeElement(document.getElementById("dnd-scope"));
+  }, []);
+
+  return (
+    <StrictMode>
+      <div id="dnd-scope">
+        {scopeElement && (
+          <DndProvider
+            backend={HTML5Backend}
+            options={{ rootElement: scopeElement }}
+          >
+            <App />
+          </DndProvider>
+        )}
+      </div>
+    </StrictMode>
+  );
+}
+
+createRoot(document.getElementById("root")!).render(<AppWithProviders />);
