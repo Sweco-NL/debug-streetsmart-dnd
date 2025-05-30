@@ -4,29 +4,22 @@ import { DndProvider } from "my-dragdrop";
 import { HTML5Backend } from "my-dragdrop-backend";
 import App from "./App.tsx";
 
-function handleDragEvents(e: DragEvent) {
-  e.stopPropagation();
-}
-
 export function AppWithProviders() {
   const [isScopeInitialized, setIsScopeInitialized] = useState(false);
   const scopeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!scopeRef.current) return;
-    const scopeElement = scopeRef.current;
-    scopeElement.addEventListener("dragover", handleDragEvents);
-    scopeElement.addEventListener("dragstart", handleDragEvents);
     setIsScopeInitialized(true);
-    return () => {
-      scopeElement.removeEventListener("dragover", handleDragEvents);
-      scopeElement.removeEventListener("dragstart", handleDragEvents);
-    };
   }, []);
 
   return (
     <StrictMode>
-      <div ref={scopeRef}>
+      <div
+        onDragOver={(e) => e.stopPropagation()}
+        onDragStart={(e) => e.stopPropagation()}
+        ref={scopeRef}
+      >
         {isScopeInitialized && (
           <DndProvider
             backend={HTML5Backend}
