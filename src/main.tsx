@@ -16,6 +16,7 @@ export function AppWithProviders() {
   return (
     <StrictMode>
       <div
+        // Prevent drag events from bubbling up to the window object which also has dnd backends (set by StreetSmartApi)
         onDragOver={(e) => e.stopPropagation()}
         onDragStart={(e) => e.stopPropagation()}
         ref={scopeRef}
@@ -23,6 +24,7 @@ export function AppWithProviders() {
         {isScopeInitialized && (
           <DndProvider
             backend={HTML5Backend}
+            // Provide the custom rootElement to the DndProvider
             options={{ rootElement: scopeRef.current }}
           >
             <App />
