@@ -35,14 +35,7 @@ export const Dustbin: FC = () => {
   }
 
   return (
-    <div
-      ref={drop}
-      style={{ ...style, backgroundColor }}
-      data-testid="dustbin"
-      onDragOver={(e) => {
-        e.stopPropagation();
-      }}
-    >
+    <div ref={drop} style={{ ...style, backgroundColor }} data-testid="dustbin">
       {isActive ? "Release to drop" : "Drag a box here"}
     </div>
   );
